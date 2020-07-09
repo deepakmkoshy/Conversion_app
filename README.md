@@ -1,6 +1,6 @@
-# conversion_app
+# Conversion App
 
-A new Flutter project.
+Complete conversion app with flutter with custom category widget.
 
 ## Getting Started
 
