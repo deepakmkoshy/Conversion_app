@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'unit.dart';
+import 'category.dart';
 
 const _padding = EdgeInsets.all(16.0);
 
@@ -12,23 +12,20 @@ const _padding = EdgeInsets.all(16.0);
 /// While it is named ConverterRoute, a more apt name would be ConverterScreen,
 /// because it is responsible for the UI at the route's destination.
 
-class ConverterRoute extends StatefulWidget {
-  final Color color;
+class UnitConverter extends StatefulWidget {
+  /// The current [Category] for unit conversion.
+  final Category category;
 
-  /// Units for this [Category]
-  final List<Unit> units;
-
-  const ConverterRoute({
-    @required this.color,
-    @required this.units,
-  })  : assert(color != null),
-        assert(units != null);
+  /// This [UnitConverter] takes in a [Category] with [Units]. It can't be null.
+  const UnitConverter({
+    @required this.category,
+  }) : assert(category != null);
 
   @override
-  _ConverterRouteState createState() => _ConverterRouteState();
+  _UnitConverterState createState() => _UnitConverterState();
 }
 
-class _ConverterRouteState extends State<ConverterRoute> {
+class _UnitConverterState extends State<UnitConverter> {
   Unit _fromValue;
   Unit _toValue;
   double _inputValue;
@@ -43,10 +40,23 @@ class _ConverterRouteState extends State<ConverterRoute> {
     _setDefaults();
   }
 
+  //_createDropdownMenuItems() and _setDefaults() should also be called
+  //each time the user switches [Categories].
+
+  @override
+  void didUpdateWidget(UnitConverter old) {
+    super.didUpdateWidget(old);
+    // We update our [DropdownMenuItem] units when we switch [Categories].
+    if (old.category != widget.category) {
+      _createDropdownMenuItems();
+      _setDefaults();
+    }
+  }
+
   /// Creates fresh list of [DropdownMenuItem] widgets, given a list of [Unit]s.
   void _createDropdownMenuItems() {
     var newItems = <DropdownMenuItem>[];
-    for (var unit in widget.units) {
+    for (var unit in widget.category.units) {
       newItems.add(DropdownMenuItem(
           value: unit.name,
           child: Container(
@@ -54,8 +64,7 @@ class _ConverterRouteState extends State<ConverterRoute> {
               unit.name,
               softWrap: true,
             ),
-          )
-      ));
+          )));
     }
     setState(() {
       _unitMenuItems = newItems;
@@ -65,8 +74,8 @@ class _ConverterRouteState extends State<ConverterRoute> {
   //Set the default values for the 'from and 'to'
   void _setDefaults() {
     setState(() {
-      _fromValue = widget.units[0];
-      _toValue = widget.units[1];
+      _fromValue = widget.category.units[0];
+      _toValue = widget.category.units[1];
     });
   }
 
@@ -97,8 +106,7 @@ class _ConverterRouteState extends State<ConverterRoute> {
     setState(() {
       if (input == null || input.isEmpty) {
         _convertedValue = '';
-      }
-      else {
+      } else {
         // Even though we are using the numerical keyboard, we still have to check
         // for non-numerical input such as '5..0' or '6 -3'
         try {
@@ -115,15 +123,13 @@ class _ConverterRouteState extends State<ConverterRoute> {
   }
 
   Unit _getUnit(String unitName) {
-    return widget.units.firstWhere(
-          (Unit unit) {
+    return widget.category.units.firstWhere(
+      (Unit unit) {
         return unit.name == unitName;
       },
       orElse: null,
-
     );
   }
-
 
   void _updateFromConversion(dynamic unitName) {
     setState(() {
@@ -143,7 +149,6 @@ class _ConverterRouteState extends State<ConverterRoute> {
     }
   }
 
-
   Widget _createDropdown(String currentValue, ValueChanged<dynamic> onChanged) {
     return Container(
       margin: EdgeInsets.only(top: 16.0),
@@ -153,7 +158,6 @@ class _ConverterRouteState extends State<ConverterRoute> {
         border: Border.all(
           color: Colors.grey[400],
           width: 1.0,
-
         ),
       ),
       padding: EdgeInsets.symmetric(vertical: 8.0),
@@ -169,14 +173,10 @@ class _ConverterRouteState extends State<ConverterRoute> {
               value: currentValue,
               items: _unitMenuItems,
               onChanged: onChanged,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .title,
+              style: Theme.of(context).textTheme.title,
             ),
           ),
         ),
-
       ),
     );
   }
@@ -192,15 +192,9 @@ class _ConverterRouteState extends State<ConverterRoute> {
           // accepts numbers and calls the onChanged property on update.
           // You can read more about it here: https://flutter.io/text-input
           TextField(
-            style: Theme
-                .of(context)
-                .textTheme
-                .display1,
+            style: Theme.of(context).textTheme.display1,
             decoration: InputDecoration(
-              labelStyle: Theme
-                  .of(context)
-                  .textTheme
-                  .display1,
+              labelStyle: Theme.of(context).textTheme.display1,
               errorText: _showValidationError ? 'Invalid number entered' : null,
               labelText: 'Input',
               border: OutlineInputBorder(
@@ -230,17 +224,11 @@ class _ConverterRouteState extends State<ConverterRoute> {
           InputDecorator(
             child: Text(
               _convertedValue,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .display1,
+              style: Theme.of(context).textTheme.display1,
             ),
             decoration: InputDecoration(
               labelText: 'Output',
-              labelStyle: Theme
-                  .of(context)
-                  .textTheme
-                  .display1,
+              labelStyle: Theme.of(context).textTheme.display1,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(0.0),
               ),
@@ -266,5 +254,3 @@ class _ConverterRouteState extends State<ConverterRoute> {
     );
   }
 }
-
-

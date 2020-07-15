@@ -10,7 +10,7 @@ import 'category_tile.dart';
 import 'unit_converter.dart';
 
 
-final _backgroundColor = Colors.green[100];
+
 
 // TODO: Check if we need to import anything
 
@@ -154,6 +154,9 @@ class _CategoryRouteState extends State<CategoryRoute> {
       frontPanel: _currentCategory == null
           ? UnitConverter(category: _defaultCategory)
           : UnitConverter(category: _currentCategory),
+      backPanel: listView,
+      frontTitle: Text('Unit Converter'),
+      backTitle: Text('Select a Category'),
     );
   }
 }

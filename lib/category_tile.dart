@@ -6,8 +6,7 @@
 // https://www.dartlang.org/guides/language/effective-dart/style#ordering
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:conversion_app/unit_converter.dart';
-import 'package:conversion_app/unit.dart';
+
 import 'category.dart';
 
 final _rowHeight = 100.0;
