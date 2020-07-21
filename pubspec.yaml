@@ -55,7 +55,7 @@ flutter:
   fonts:
     - family: Raleway
       fonts:
-            - asset: third_party/Raleway-Regular.ttf
+        - asset: third_party/Raleway-Regular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

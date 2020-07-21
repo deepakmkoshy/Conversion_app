@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 // You can use a relative import, i.e. `import 'category.dart';` or
 // a package import, as shown below.
 // More details at http://dart-lang.github.io/linter/lints/avoid_relative_lib_imports.html
-import 'package:conversion_app/category.dart';
 import 'category_route.dart';
 
 // TODO: Pass this information into your custom [Category] widget
@@ -31,9 +30,11 @@ class UnitConverterApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Unit Converter',
       theme: ThemeData(
+        fontFamily: 'Raleway', 
         textTheme: Theme.of(context).textTheme.apply(
         bodyColor: Colors.black,
         displayColor: Colors.grey[600],
+        fontFamily: 'Raleway',
       ),
       primaryColor: Colors.grey[500],
       textSelectionHandleColor: Colors.green[500],
