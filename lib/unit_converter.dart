@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'unit.dart';
 import 'category.dart';
+import 'package:conversion_app/api.dart';
+import 'dart:async';
 
 const _padding = EdgeInsets.all(16.0);
 
@@ -95,12 +97,28 @@ class _UnitConverterState extends State<UnitConverter> {
     }
     return outputNum;
   }
+// TODO: If in the Currency [Category], call the API to retrieve the conversion.
+  // Remember, the API call is an async function.
+  Future<void> _updateConversion() async {
+    // Our API has a handy convert function, so we can use that for
+    // the Currency [Category]
+    if (widget.category.name == apiCategory['name']) {
+      final api = Api();
+      final conversion = await api.convert(
+          apiCategory['route'], _inputValue.toString(), _fromValue.name,
+          _toValue.name);
 
-  void _updateConversion() {
-    setState(() {
-      _convertedValue =
-          _format(_inputValue * (_toValue.conversion / _fromValue.conversion));
-    });
+      setState(() {
+        _convertedValue = _format(conversion);
+      });
+    }
+    else {
+      setState(() {
+        _convertedValue =
+            _format(
+                _inputValue * (_toValue.conversion / _fromValue.conversion));
+      });
+    }
   }
 
   void _updateInputValue(String input) {
