@@ -67,7 +67,6 @@ class CategoryTile extends StatelessWidget {
   // See https://docs.flutter.io/flutter/material/Theme-class.html
   Widget build(BuildContext context) {
     // TODO: Build the custom widget here, referring to the Specs.
-
     return Material(
       color: onTap==null ? Color.fromRGBO(50, 50, 50, 0.2): Colors.transparent,
       child: Container(
