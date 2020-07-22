@@ -81,6 +81,9 @@ class _UnitConverterState extends State<UnitConverter> {
       _fromValue = widget.category.units[0];
       _toValue = widget.category.units[1];
     });
+    if (_inputValue != null) {
+      _updateConversion();
+    }
   }
 
   /// Clean up conversion; trim trailing zeros, e.g. 5.500 -> 5.5, 10.0 -> 10
@@ -108,10 +111,18 @@ class _UnitConverterState extends State<UnitConverter> {
       final conversion = await api.convert(
           apiCategory['route'], _inputValue.toString(), _fromValue.name,
           _toValue.name);
-
-      setState(() {
-        _convertedValue = _format(conversion);
-      });
+      // API error or not connected to the internet
+      if (conversion == null) {
+        setState(() {
+          _showErrorUI = true;
+        });
+      }
+      else {
+        setState(() {
+          _showErrorUI = false;
+          _convertedValue = _format(conversion);
+        });
+      }
     }
     else {
       setState(() {

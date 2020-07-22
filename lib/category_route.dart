@@ -4,7 +4,7 @@
 
 import "dart:async";
 import "dart:convert";
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:conversion_app/api.dart';
 
 import 'unit.dart';
@@ -182,9 +182,16 @@ class _CategoryRouteState extends State<CategoryRoute> {
     if (deviceOrientation == Orientation.portrait) {
       return ListView.builder(
         itemBuilder: (BuildContext context, int index) {
+//          // You may want to make the Currency [Category] not tappable
+//          // while it is loading, or if there an error.
+        var _category=_categories[index];
+
           return CategoryTile(
-            category: _categories[index],
-            onTap: _onCategoryTap,
+            category: _category,
+            onTap:
+            _category.name==apiCategory['name']&&_category.units.isEmpty
+            ?null
+            :_onCategoryTap,
           );
         },
         itemCount: _categories.length,
