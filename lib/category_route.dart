@@ -4,9 +4,8 @@
 
 import "dart:async";
 import "dart:convert";
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:conversion_app/api.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'unit.dart';
 import 'package:flutter/material.dart';
 import 'category.dart';

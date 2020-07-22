@@ -272,9 +272,16 @@ class _UnitConverterState extends State<UnitConverter> {
     );
     final arrows = RotatedBox(
       quarterTurns: 1,
-      child: Icon(
-        Icons.compare_arrows,
-        size: 40.0,
+      child: IconButton(
+        icon: Icon(Icons.compare_arrows),
+        iconSize: 40.0,
+        onPressed: (){
+          Unit tmp;
+          tmp=_fromValue;
+          _fromValue=_toValue;
+          _toValue=tmp;
+          _updateConversion();
+        },
       ),
     );
 
