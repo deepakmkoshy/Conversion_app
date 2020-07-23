@@ -1,9 +1,16 @@
-# Conversion App
+# Convert It!
 
-Conversion app with flutter with custom category widget.
+A simple unit converter app consisting of basic essential units like length, area, volume etc.
 
+Comes with a simple and intuitive UI developed with the help of Backdrop Flutter package.
 
-13-07-2020: Created converter route with all the required groups and the dropdown is created via mock units. 
+Flutter packages used:
+-backdrop
+-flutter launcher icons
 
-17-07-2020: The app now incorporates Backdrop package which gives a good look and feel to the app. Also added support for landscape view.
- 	    Now the dropdown contains mock unit, so the next update will be to change that to appropriate values
+API:
+flutter.udacity.com -
+Mock API used in currency category
+
+ToDo:
+Use a real API for the currency category 
