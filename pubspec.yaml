@@ -58,6 +58,7 @@ flutter:
     - assets/icons/power.png
     - assets/icons/time.png
     - assets/icons/volume.png
+    - assets/icons/icon.png
 
 
   fonts:
