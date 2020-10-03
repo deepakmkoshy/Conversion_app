@@ -5,6 +5,7 @@
 // You can read about packages here: https://flutter.io/using-packages/
 import 'package:conversion_app/category_route.dart';
 import 'package:flutter/material.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 // You can use a relative import, i.e. `import 'category.dart';` or
 // a package import, as shown below.
@@ -32,14 +33,27 @@ class UnitConverterApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Raleway',
         textTheme: Theme.of(context).textTheme.apply(
-        bodyColor: Colors.black,
-        displayColor: Colors.grey[600],
-        fontFamily: 'Raleway',
+              bodyColor: Colors.black,
+              displayColor: Colors.grey[600],
+              fontFamily: 'Raleway',
+            ),
+        primaryColor: Colors.grey[500],
+        textSelectionHandleColor: Colors.green[500],
       ),
-      primaryColor: Colors.grey[500],
-      textSelectionHandleColor: Colors.green[500],
+      home: SplashScreen(
+        seconds: 2,
+        navigateAfterSeconds: CategoryRoute(),
+        image: Image.asset(
+          'assets/icons/icon.png',
+          width: 100,
+        ),
+        photoSize: 120,
+        backgroundColor: Colors.white70,
+        loadingText: Text(
+          'Make sure network is Connected for getting Currency Exchange Rates!',
+          textAlign: TextAlign.center,
+        ),
       ),
-      home: CategoryRoute(),
     );
   }
 }
